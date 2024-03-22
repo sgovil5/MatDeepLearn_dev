@@ -1,0 +1,7 @@
+0.3 8 6 -featurized
+0.5 8 6 -featurized
+1 8 6 -featurized
+2 8 6 -nothing yet
+
+0.3 2 3 -featurized
+0.5 2 3 -featurized
