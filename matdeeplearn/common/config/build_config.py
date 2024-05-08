@@ -104,6 +104,40 @@ def build_config(args, args_override):
         config["task"]["run_mode"] = args.run_mode
     if args.seed != None:    
         config["task"]["seed"] = args.seed
+    if args.gpu_id != None:
+        config["task"]["gpu_id"] = args.gpu_id
+    if args.src_dir != None:
+        config["dataset"]["src"] = args.src_dir
+    if args.batch_size != None:
+        config["optim"]["batch_size"] = args.batch_size
+    if args.pt_path != None:
+        config["dataset"]["pt_path"] = args.pt_path
+    if args.target_path != None:
+        config["dataset"]["target_path"] = args.target_path
+    if args.global_pool != None:
+        config["model"]["pool"] = args.global_pool
+    if args.lr != None:
+        config["optim"]["lr"] = args.lr
+    if args.clip != None:
+        config["optim"]["clip_grad_norm"] = args.clip
+    if args.num_epochs != None:
+        config["optim"]["max_epochs"] = args.num_epochs
+    if args.processed != None:
+        processed = args.processed in ["True", "true", "1"]
+        config["dataset"]["processed"] = processed
+    if args.use_amp != None:
+        use_amp = args.use_amp in ["True", "true", "1"]
+        config["task"]["use_amp"] = use_amp
+    if args.batch_tqdm != None:
+        batch_tqdm = args.batch_tqdm in ["True", "true", "1"]
+        config["optim"]["batch_tqdm"] = batch_tqdm
+    if args.shut_otf != None:
+        shut_otf = args.shut_otf in ["True", "true", "1"]
+        if shut_otf:
+            config["model"]["otf_edge"] = False
+            config["model"]["gradient"] = False
+            config["dataset"]["preprocess_params"]["preprocess_edges"] = True
+            config["dataset"]["preprocess_params"]["preprocess_features"] = True
     #
     # Submit
     config["submit"] = args.submit

@@ -22,8 +22,20 @@ with open(fname, "r") as f:
 robust = RobustScaler()
 data = original_data.copy()
 # scale the features
+all_y = [item for sublist in data for item in sublist["y"]]
+
+# Convert list to numpy array and reshape for fitting
+all_y_array = np.array(all_y).reshape(-1, 1)  # reshape to (n_samples, n_features) where n_features is 1
+
+# Scale the combined list of all 'y' values
+scaled_y = robust.fit_transform(all_y_array).flatten()
+
+# Reassign scaled 'y' values back to each dataset
+index = 0
 for d in data:
-    d["y"] = robust.fit_transform(d["y"]).tolist()
+    num_y = len(d["y"])
+    d["y"] = scaled_y[index:index + num_y].tolist()
+    index += num_y
 # save the scaled features
 fname = f"data/mp_data_forces/generated_features/linspace{linspace}_orders{orders}_sigmas{sigmas}_robust.json"
 with open(fname, "w") as f:
@@ -33,8 +45,20 @@ with open(fname, "w") as f:
 data = original_data.copy()
 # scale the features
 minmax = MinMaxScaler()
+all_y = [item for sublist in data for item in sublist["y"]]
+
+# Convert list to numpy array and reshape for fitting
+all_y_array = np.array(all_y).reshape(-1, 1)  # reshape to (n_samples, n_features) where n_features is 1
+
+# Scale the combined list of all 'y' values
+scaled_y = minmax.fit_transform(all_y_array).flatten()
+
+# Reassign scaled 'y' values back to each dataset
+index = 0
 for d in data:
-    d["y"] = minmax.fit_transform(d["y"]).tolist()
+    num_y = len(d["y"])
+    d["y"] = scaled_y[index:index + num_y].tolist()
+    index += num_y
 # save the scaled features
 fname = f"data/mp_data_forces/generated_features/linspace{linspace}_orders{orders}_sigmas{sigmas}_minmax.json"
 with open(fname, "w") as f:

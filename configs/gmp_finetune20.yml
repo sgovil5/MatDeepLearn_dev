@@ -5,15 +5,15 @@ task:
   identifier: torchmd
   parallel: False
   # If seed is not set, then it will be random every time
-  seed: 12345678
+  seed: 111
   # Defaults to run directory if not specified
   save_dir: 
   # continue from a previous job
-  continue_job: False
+  continue_job: True
   # spefcify if the training state is loaded: epochs, learning rate, etc
   load_training_state: False
   # Path to the checkpoint.pt file
-  checkpoint_path: 
+  checkpoint_path: results/linspace2.0_orders2_sigmas4/checkpoint/best_checkpoint.pt
   # E.g. [train, val, test]
   write_output: [val, test]
   # Frequency of writing to file; 0 denotes writing only at the end, 1 denotes writing every time
@@ -62,7 +62,7 @@ optim:
     #loss_args: {weight_energy: 1.0, weight_force: 1.0}
   clip_grad_norm: 10
          
-  batch_size: 8
+  batch_size: 32
   optimizer:
     optimizer_type: AdamW
     optimizer_args: {}
@@ -75,17 +75,17 @@ optim:
   batch_tqdm: False
   
 dataset:
-  name: MP_data_forces_relaxed
+  name: MatBench
   processed: False
   # Path to data files - this can either be in the form of a string denoting a single path or a dictionary of {train: train_path, val: val_path, test: test_path, predict: predict_path}
-  src: data/mp_data_forces/generated_features/linspace2.0_orders2_sigmas4.json
+  src: data/JDFT/data_exfoliation.json
   # Path to target file within data_path - this can either be in the form of a string denoting a single path or a dictionary of {train: train_path, val: val_path, test: test_path} or left blank when the dataset is a single json file
   # Example: target_path: "data/test_data/raw_graph_scalar/targets.csv"
   target_path: 
   # Path to save processed data.pt file
-  pt_path: data/
+  pt_path: data/JDFT
   # Either "node" or "graph"
-  prediction_level: node
+  prediction_level: graph
   
   transforms:
     - name: GetY
@@ -130,6 +130,6 @@ dataset:
   # Where the dataset is loaded; either "cpu" or "cuda"
   dataset_device: cpu
   # Ratios for train/val/test split out of a total of less than 1
-  train_ratio: 0.8
-  val_ratio: 0.05
-  test_ratio: 0.15
+  train_ratio: 0.6
+  val_ratio: 0.2
+  test_ratio: 0.2

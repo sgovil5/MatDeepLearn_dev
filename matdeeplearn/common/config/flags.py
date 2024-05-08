@@ -42,6 +42,75 @@ class Flags:
             type=int,
             help="seed for data split, 0=random",
         )
+        self.parser.add_argument(
+            "--gpu_id",
+            type=str,
+            help="GPU ID to use",
+        )
+
+        self.parser.add_argument(
+            "--src_dir",
+            type=str,
+            help="Source dataset directory",
+        )
+
+        self.parser.add_argument(
+            "--batch_size",
+            type=int,
+            help="Batch size",
+        )
+
+        self.parser.add_argument(
+            "--pt_path",
+            type=str,
+            help="Path to data.pt",
+        )
+
+        self.parser.add_argument(
+            "--target_path",
+            type=str,
+            help="Path to target.csv",
+        )
+        self.parser.add_argument(
+            "--global_pool",
+            type=str,
+            help="Global pooling method",
+        )
+        self.parser.add_argument(
+            "--lr",
+            type=float,
+            help="learning rate",
+        )
+        self.parser.add_argument(
+            "--clip",
+            type=float,
+            help="gradient clipping",
+        )
+        self.parser.add_argument(
+            "--num_epochs",
+            type=int,
+            help="number of epochs",
+        )
+        self.parser.add_argument(
+            "--processed",
+            type=str,
+            help="Whether data is processed",
+        )
+        self.parser.add_argument(
+            "--batch_tqdm",
+            type=str,
+            help="Whether to use tqdm",
+        )
+        self.parser.add_argument(
+            "--use_amp",
+            type=str,
+            help="Whether to use amp",
+        )
+        self.parser.add_argument(
+            "--shut_otf",
+            type=str,
+            help="Whether to shut off the fly",
+        )
         # parser.add_argument(
         #     "--model_path",
         #     default=None,

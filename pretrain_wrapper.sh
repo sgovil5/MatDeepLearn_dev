@@ -25,14 +25,14 @@ do
 
     cp configs/GMP_pretraining_backup.yml configs/GMP_pretraining.yml
     sed -e "s/\${linspace}/$linspace/g" -e "s/\${orders}/$orders/g" -e "s/\${sigmas}/$sigmas/g" -e "s/\${scale}//g" pretrain_template.sh > normal_pretrain.sh
-    sbatch normal_pretrain.sh
+    bash normal_pretrain.sh
     cp configs/GMP_pretraining_backup.yml configs/GMP_pretraining.yml
 
     sed -e "s/\${linspace}/$linspace/g" -e "s/\${orders}/$orders/g" -e "s/\${sigmas}/$sigmas/g" -e "s/\${scale}/_robust/g" pretrain_template.sh > robust_pretrain.sh
-    sbatch robust_pretrain.sh
+    bash robust_pretrain.sh
     cp configs/GMP_pretraining_backup.yml configs/GMP_pretraining.yml
 
     sed -e "s/\${linspace}/$linspace/g" -e "s/\${orders}/$orders/g" -e "s/\${sigmas}/$sigmas/g" -e "s/\${scale}/_minmax/g" pretrain_template.sh > minmax_pretrain.sh
-    sbatch minmax_pretrain.sh
+    bash minmax_pretrain.sh
     cp configs/GMP_pretraining_backup.yml configs/GMP_pretraining.yml
 done < "$input"
